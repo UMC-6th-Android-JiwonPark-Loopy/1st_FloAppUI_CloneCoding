@@ -219,8 +219,8 @@
 
                 <ImageView
                     android:id="@+id/iv_album1"
-                    android:layout_width="130dp"
-                    android:layout_height="130dp"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
                     android:src="@drawable/lilac"
                     android:layout_marginTop="10dp"
                     android:layout_marginStart="20dp"
@@ -247,8 +247,8 @@
 
                 <ImageView
                     android:id="@+id/iv_album2"
-                    android:layout_width="130dp"
-                    android:layout_height="130dp"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
                     android:src="@drawable/lilac"
                     android:layout_marginTop="10dp"
                     android:layout_marginStart="20dp"
@@ -274,8 +274,8 @@
 
                 <ImageView
                     android:id="@+id/iv_album3"
-                    android:layout_width="130dp"
-                    android:layout_height="130dp"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
                     android:src="@drawable/lilac"
                     android:layout_marginTop="10dp"
                     android:layout_marginStart="20dp"
