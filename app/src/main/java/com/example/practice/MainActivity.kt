@@ -38,6 +38,24 @@ class MainActivity : AppCompatActivity() {
                         .commitAllowingStateLoss()
                     return@setOnItemSelectedListener true
                 }
+                R.id.lookFragment -> {
+                    supportFragmentManager.beginTransaction()
+                        .replace(R.id.fr_main, LookFragment())
+                        .commitAllowingStateLoss()
+                    return@setOnItemSelectedListener true
+                }
+                R.id.searchFragment -> {
+                    supportFragmentManager.beginTransaction()
+                        .replace(R.id.fr_main, SearchFragment())
+                        .commitAllowingStateLoss()
+                    return@setOnItemSelectedListener true
+                }
+                R.id.lockerFragment -> {
+                    supportFragmentManager.beginTransaction()
+                        .replace(R.id.fr_main, LockerFragment())
+                        .commitAllowingStateLoss()
+                    return@setOnItemSelectedListener true
+                }
 
                 else -> {
                     return@setOnItemSelectedListener true
