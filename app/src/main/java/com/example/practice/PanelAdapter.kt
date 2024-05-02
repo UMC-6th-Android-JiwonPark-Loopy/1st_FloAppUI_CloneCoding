@@ -16,5 +16,4 @@ class PanelAdapter (fragment: Fragment) : FragmentStateAdapter(fragment){
         fragmentList.add(fragment)
         notifyItemInserted(fragmentList.size-1)
     }
-
 }
