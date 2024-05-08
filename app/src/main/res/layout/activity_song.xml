@@ -223,13 +223,18 @@ Love resembles misty dream\n
         app:layout_constraintEnd_toEndOf="@id/nestedScrollView"
         app:layout_constraintTop_toBottomOf="@id/nestedScrollView" />
 
-    <com.google.android.material.progressindicator.LinearProgressIndicator
+    <SeekBar
         android:id="@+id/song_play_line_ml"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="70dp"
         android:layout_marginEnd="10dp"
         android:layout_marginStart="10dp"
+        android:background="@null"
+        android:progress="0"
+        android:progressTint="#4F44F4"
+        android:thumb="@android:color/transparent"
+        android:max="100000"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/nestedScrollView" />

@@ -7,16 +7,18 @@ import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.ReportFragment.Companion.reportFragment
 import com.example.practice.data.Song
+import com.example.practice.data.SongEx
 import com.example.practice.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
-
     private lateinit var binding: ActivityMainBinding
     lateinit var resultIntent : ActivityResultLauncher<Intent>
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setTheme(R.style.Theme_Practice)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         initNavigation()
@@ -77,15 +79,18 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun onClickButton() {
-        val song = Song("","")
+        val songex = SongEx("","",0,60,false)
         with(binding){
-            song.singer = mainMiniplayerSingerTv.text.toString()
-            song.title = mainMiniplayerTitleTv.text.toString()
+            songex.singer = mainMiniplayerSingerTv.text.toString()
+            songex.title = mainMiniplayerTitleTv.text.toString()
         }
         binding.mainPlayerCl.setOnClickListener {
             val intent = Intent(this,SongActivity::class.java).apply {
-                putExtra("title", song.title)
-                putExtra("singer", song.singer)
+                putExtra("title", songex.title)
+                putExtra("singer", songex.singer)
+                putExtra("second", songex.second)
+                putExtra("isPlaying", songex.isPlaying)
+                putExtra("playTime", songex.playTime)
             }
             resultIntent.launch(intent)
         }

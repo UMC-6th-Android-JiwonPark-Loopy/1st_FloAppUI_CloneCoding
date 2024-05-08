@@ -59,12 +59,12 @@ class HomeFragment : Fragment() {
 
 
     private fun viewPager2Adapter(){
+
         bannerAdapter = BannerAdapter(this)
         bannerAdapter.addFragment(BannerFragment(R.drawable.img_home_viewpager_exp))
         bannerAdapter.addFragment(BannerFragment(R.drawable.img_home_viewpager_exp2))
         binding.homeBannerVp.adapter = bannerAdapter
         binding.homeBannerVp.orientation = ViewPager2.ORIENTATION_HORIZONTAL
-
 
         panelAdapter = PanelAdapter(this)
         panelAdapter.addFragment(PanelFragment(PanelItem("포근하게 덮어주는 \n꿈의 목소리","잠이 안온다","젠(zen)",R.drawable.img_album_exp,R.drawable.img_first_album_default)))
@@ -78,6 +78,8 @@ class HomeFragment : Fragment() {
         panelAdapter.registerAdapterDataObserver(binding.panelIdc.adapterDataObserver)
 
 
+
+        
 
 //         마지막 페이지에서 다음으로 스와이프한 경우 첫 번째 페이지로 이동
         binding.homePanelBackgroundIv.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
