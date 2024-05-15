@@ -12,10 +12,15 @@ import androidx.lifecycle.ReportFragment.Companion.reportFragment
 import com.example.practice.data.Song
 import com.example.practice.data.SongEx
 import com.example.practice.databinding.ActivityMainBinding
+import com.google.gson.Gson
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     lateinit var resultIntent : ActivityResultLauncher<Intent>
+    private var songEx = SongEx()
+    private var gson = Gson()
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setTheme(R.style.Theme_Practice)
@@ -26,7 +31,24 @@ class MainActivity : AppCompatActivity() {
         setResultIntent()
 
     }
+    private fun setMiniPlayer(songEx: SongEx){
+        binding.mainMiniplayerTitleTv.text = songEx.title
+        binding.mainMiniplayerSingerTv.text = songEx.singer
+        binding.sbMain.progress= ((songEx.second*100000)/songEx.playTime)
 
+    }
+
+    override fun onStart() {
+        super.onStart()
+        val sharedPreferences = getSharedPreferences("song", MODE_PRIVATE)
+        val songJson = sharedPreferences.getString("songData",null)
+        songEx = if(songJson == null){
+            SongEx("라일락","아이유",0,60,false,"music_lilac")
+        }else{
+            gson.fromJson(songJson, SongEx::class.java)
+        }
+        setMiniPlayer(songEx)
+    }
     private fun initNavigation() {
         supportFragmentManager.beginTransaction()
             .replace(R.id.fr_main, HomeFragment())
@@ -79,7 +101,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun onClickButton() {
-        val songex = SongEx("","",0,60,false)
+        val songex = SongEx("","",0,60,false,"music_lilac")
         with(binding){
             songex.singer = mainMiniplayerSingerTv.text.toString()
             songex.title = mainMiniplayerTitleTv.text.toString()
@@ -91,9 +113,18 @@ class MainActivity : AppCompatActivity() {
                 putExtra("second", songex.second)
                 putExtra("isPlaying", songex.isPlaying)
                 putExtra("playTime", songex.playTime)
+                putExtra("music",songex.music)
             }
             resultIntent.launch(intent)
         }
+    }
+    override fun onPause() {
+        super.onPause()
+        val sharedPreferences = getSharedPreferences("song", MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        val songJson = gson.toJson(songEx)
+        editor.putString("songData", songJson)
+        editor.apply()
     }
 
     companion object {

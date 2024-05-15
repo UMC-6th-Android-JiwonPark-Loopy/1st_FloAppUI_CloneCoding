@@ -17,6 +17,13 @@
         app:layout_constraintTop_toTopOf="parent"
         app:navGraph="@navigation/navigation" />
 
+    <SeekBar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@id/main_player_cl"
+        android:background="@color/white"
+        android:max="100000"
+        android:id="@+id/sb_main"/>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/main_player_cl"
         android:layout_width="match_parent"
