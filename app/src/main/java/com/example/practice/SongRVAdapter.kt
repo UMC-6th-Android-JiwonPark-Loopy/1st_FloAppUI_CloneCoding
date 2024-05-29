@@ -1,9 +1,11 @@
 package com.example.practice
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.practice.data.Album
+import com.example.practice.data.Song
 import com.example.practice.databinding.FragmentHomePanelBinding
 import com.example.practice.databinding.ItemAlbumBinding
 import com.example.practice.databinding.ItemLockerBinding
@@ -60,6 +62,9 @@ class SongRVAdapter(private var albumList: ArrayList<Album>) :
     }
 
     override fun getItemCount() = albumList.size
+
+
+
     inner class ViewHolder(val binding: ItemLockerBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(album: Album) {
             binding.ivLocker.setImageResource(album.coverImg!!)

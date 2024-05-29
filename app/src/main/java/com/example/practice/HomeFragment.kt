@@ -16,8 +16,9 @@ import com.example.practice.databinding.FragmentHomeBinding
 import com.google.gson.Gson
 
 class HomeFragment : Fragment() {
-
+    lateinit var albumDB: SongDatabase
     private var albumDatas = ArrayList<Album>()
+
     private lateinit var binding: FragmentHomeBinding
     private lateinit var bannerAdapter : BannerAdapter
     private lateinit var panelAdapter: PanelAdapter
@@ -28,9 +29,15 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
+        initAlbumDatabase()
         onButtonClick()
         viewPager2Adapter()
         return binding.root
+    }
+
+    private fun initAlbumDatabase(){
+        albumDB = SongDatabase.getInstance(requireContext())!!
+        albumDatas.addAll(albumDB.albumDao().getAlbums())
     }
 
     private fun onButtonClick() {
@@ -45,22 +52,23 @@ class HomeFragment : Fragment() {
         }
 
 
-        albumDatas.apply {
-            add(Album("Butter", "방탄소년단 (BTS)", R.drawable.img_album_exp))
-            add(Album("Lilac", "아이유 (IU)", R.drawable.img_album_exp2))
-            add(Album("Next Level", "에스파 (AESPA)", R.drawable.img_album_exp3))
-            add(Album("Boy with Luv", "방탄소년단 (BTS)", R.drawable.img_album_exp4))
-            add(Album("BBoom BBoom", "모모랜드 (MOMOLAND)", R.drawable.img_album_exp5))
-            add(Album("Weekend", "태연 (Tae Yeon)", R.drawable.img_album_exp6))
-        }
+//        albumDatas.apply {
+//            add(Album("Butter", "방탄소년단 (BTS)", R.drawable.img_album_exp))
+//            add(Album("Lilac", "아이유 (IU)", R.drawable.img_album_exp2))
+//            add(Album("Next Level", "에스파 (AESPA)", R.drawable.img_album_exp3))
+//            add(Album("Boy with Luv", "방탄소년단 (BTS)", R.drawable.img_album_exp4))
+//            add(Album("BBoom BBoom", "모모랜드 (MOMOLAND)", R.drawable.img_album_exp5))
+//            add(Album("Weekend", "태연 (Tae Yeon)", R.drawable.img_album_exp6))
+//        }
         val albumRVAdapter = AlbumRVAdapter(albumDatas)
         binding.hsv.adapter = albumRVAdapter
         binding.hsv.layoutManager = LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,false)
 
-
         with(binding) {
             val fragment = AlbumFragment()
             val bundle = Bundle()
+
+
             albumRVAdapter.setMyItemClickListener(object : AlbumRVAdapter.MyItemClickListener{
                 override fun onItemClick(album: Album) {
                   putBundle(fragment,bundle,album)
@@ -70,9 +78,10 @@ class HomeFragment : Fragment() {
                     TODO("Not yet implemented")
                 }
 
-                override fun onItemClick2(item: Album) {
+
+                override fun onItemClick2(position: Int) {
                     val activity = activity as MainActivity?
-                    activity?.updateValue(item)
+                    activity?.updateValue(position)
                 }
             })
 //            ivAlbum1.setOnClickListener {
