@@ -6,6 +6,7 @@ import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
 import com.example.practice.data.Album
+import com.example.practice.data.Like
 
 @Dao
 interface AlbumDao {
@@ -18,12 +19,23 @@ interface AlbumDao {
     @Delete
     fun delete(album: Album)
 
-    @Query("SELECT * FROM albumTable") // 테이블의 모든 값을 가져와라
+    @Query("SELECT * FROM AlbumTable") // 테이블의 모든 값을 가져와라
     fun getAlbums(): List<Album>
 
 
-    @Query("SELECT * FROM albumTable WHERE id = :id")
+    @Query("SELECT * FROM AlbumTable WHERE id = :id")
     fun getAlbum(id: Int): Album
 
+    @Insert
+    fun likeAlbum(like : Like)
+
+    @Query("SELECT id FROM LikeTable WHERE userId = :userId AND albumId = :albumId")
+    fun isLikedAlbum(userId: Int, albumId: Int): Int?
+
+    @Query("DELETE FROM LikeTable WHERE userId = :userId AND albumId = :albumId")
+    fun disLikedAlbum(userId : Int, albumId : Int)
+
+    @Query("SELECT AT.* FROM LikeTable as LT LEFT JOIN AlbumTable as AT ON LT.albumId = AT.id WHERE LT.userId = :userId")
+    fun getLikedAlbums(userId : Int) : List<Album>
 
 }

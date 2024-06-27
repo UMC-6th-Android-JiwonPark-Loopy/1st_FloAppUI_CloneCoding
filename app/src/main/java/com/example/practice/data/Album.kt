@@ -3,7 +3,7 @@ package com.example.practice.data
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "albumTable")
+@Entity(tableName = "AlbumTable")
 data class Album(
     @PrimaryKey(autoGenerate = false) var id : Int = 0,
     var title: String?="",
